@@ -44,9 +44,9 @@ $searchOptions = isset($searchOptions) ? $searchOptions : "";
 	Options:
 	"caseSensitive" - Get case sensitive results only
 	"regex" -   Search for regular expressions
-	"eval" -    Code of custom function. The variable $searchContent contains
+	"code" -    Code of custom function. The variable $searchContent contains
 	            the content of the document variable or template variable
-	            Example:    &searchOptions=`eval` &searchString=`return strpos(strtolower($searchContent), 'test');`
+	            Example:    &searchOptions=`code` &searchString=`return strpos(strtolower($searchContent), 'test');`
 	                        Should return then same results as
 	                        &searchOptions=`` &searchString=`test`
 	
