@@ -67,11 +67,12 @@ if (!class_exists("searchFilter")) {
         function searchFilter($searchString = "", $sourceFields = "content", $searchOptions = "") {
             global $modx;
             $this->options = array_combine($options = explode(",", $searchOptions), array_fill(0, count($options), true));
-            if ($this->options["caseSensitive"] = $this->options["caseSensitive"] || false)
-                $this->searchString = strtolower($this->searchString);
             
-            $this->options["code"] = isset($this->options["code"]) ? $this->options["code"] : false;
-            $this->searchString = ($this->options["file"] && ($file = file_get_contents($searchString))) ? $file : (($this->options["chunk"] && ($chunk = $modx->getChunk($searchString))) ? $chunk : $searchString);
+            $this->searchString = 
+                ($this->options["file"] && ($file = file_get_contents($searchString))) ? $file : (
+                    ($this->options["chunk"] && ($chunk = $modx->getChunk($searchString))) ? $chunk : $searchString
+                );
+
             $this->sourceFields = explode(",", $sourceFields);
         }
 
@@ -87,15 +88,13 @@ if (!class_exists("searchFilter")) {
                     if (eval($this->searchString) !== false)
                         $result = 1;
                 } elseif ($this->options["regex"]) {
-                    $matches = array();
-                    preg_match($this->searchString, $searchContent, $matches);
-                    if (count($matches) > 0)
+                    if (preg_match($this->searchString, $searchContent))
+                        $result = 1;
+                } elseif ($this->options["caseSensitive"]) {
+                    if (strpos($searchContent, $this->searchString) !== false)
                         $result = 1;
                 } else {
-                    if (!$this->options["caseSensitive"])
-                        $searchContent = strtolower($searchContent);
-
-                    if (strpos($searchContent, $this->searchString) !== false)
+                    if (stripos($searchContent, $this->searchString) !== false)
                         $result = 1;
                 }
             }
