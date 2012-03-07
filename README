@@ -1,8 +1,7 @@
 Ditto extenders for MODx Evolution
 
 Installation:
-    Copy this files into "assets/snippets/ditto/extenders/" of your MODx
-    installation folder
+    Copy the *.extender.php file into "assets/snippets/ditto/extenders/" of your MODx Evolution installation folder
 
 Usage:
-    Please take a look into the source code of each extender file for details
+    Please take a look at the source code of each extender file for details
